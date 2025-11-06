@@ -30,7 +30,7 @@ public class ValidatorTest {
   void 기본_구분자가_아닌_경우_예외_처리() {
     assertThatThrownBy(() -> validator.validateBaseInput("1!2@3$4")).isInstanceOf(IllegalArgumentException.class);
 
-    assertThatThrownBy(() -> validator.validateBaseInput(" ")).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> validator.validateBaseInput("4|4!3@")).isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test

@@ -21,10 +21,11 @@ public class Validator {
 
     if (!stringMatcher.find()) return;
 
-    Pattern baseSeparatorPattern = Pattern.compile("^[,;]");
+    Pattern notBaseSeparatorPattern = Pattern.compile("[^0-9,;\\s]");
 
-    Matcher baseSeparatorMatcher = baseSeparatorPattern.matcher(input);
-    if (!baseSeparatorMatcher.find()) {
+    Matcher baseSeparatorMatcher = notBaseSeparatorPattern.matcher(input);
+
+    if (baseSeparatorMatcher.find()) {
       throw new IllegalArgumentException("[ERROR] 기본 구분자로 설정되지 않았습니다.");
     }
   }
