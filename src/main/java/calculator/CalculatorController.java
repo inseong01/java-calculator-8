@@ -25,6 +25,11 @@ public class CalculatorController {
     String USER_OUtPUT_PROMPT = "결과 : ";
     String separator = this.parser.getSeparator();
 
+    if (this.input.trim().isEmpty()) {
+      View.output(USER_OUtPUT_PROMPT + 0);
+      return;
+    }
+
     int[] numbers = this.parser.getNumbers(separator);
 
     int result = Calculator.sum(numbers);
