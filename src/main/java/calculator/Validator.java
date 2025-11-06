@@ -15,18 +15,18 @@ public class Validator {
   }
 
   public void validateBaseInput(String input) {
+    if (input.trim().isEmpty()) return;
+
     Pattern stringPattern = Pattern.compile("\\D");
 
     Matcher stringMatcher = stringPattern.matcher(input);
 
     if (!stringMatcher.find()) return;
 
-    Pattern notBaseSeparatorPattern = Pattern.compile("[^0-9,;\\s]");
+    String[] numberStrings = input.split("[,;]");
 
-    Matcher baseSeparatorMatcher = notBaseSeparatorPattern.matcher(input);
-
-    if (baseSeparatorMatcher.find()) {
-      throw new IllegalArgumentException("[ERROR] 기본 구분자로 설정되지 않았습니다.");
+    if (Arrays.stream(numberStrings).anyMatch(value -> !value.trim().matches("\\d+"))) {
+      throw new IllegalArgumentException("[ERROR] 기본 구분자와 양의 정수로 구성되어야 합니다.");
     }
   }
 

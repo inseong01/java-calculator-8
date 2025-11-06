@@ -34,23 +34,16 @@ public class ValidatorTest {
   }
 
   @Test
-  void 숫자배열이_올바른_경우_통과() {
-    int[] numbers = {1, 2, 3, 4, 5};
+  void 기본_구분자로_구성되지_않은_경우_예외_처리() {
+    String input = "1! 2; 3, -5";
 
-    assertThatCode(() -> validator.validateNumbers(numbers)).doesNotThrowAnyException();
+    assertThatThrownBy(() -> validator.validateBaseInput(input)).isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
-  void 숫자배열이_없는_경우_예외_처리() {
-    int[] numbers = {};
+  void 기본_구분자에서_음수가_포함되어_있는_경우_예외_처리() {
+    String input = "1, 2; 3, -5";
 
-    assertThatThrownBy(() -> validator.validateNumbers(numbers)).isInstanceOf(IllegalArgumentException.class);
-  }
-
-  @Test
-  void 숫자배열에서_음수가_포함되어_있는_경우_예외_처리() {
-    int[] numbers = {1, 2, 3, -5};
-
-    assertThatThrownBy(() -> validator.validateNumbers(numbers)).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> validator.validateBaseInput(input)).isInstanceOf(IllegalArgumentException.class);
   }
 }
